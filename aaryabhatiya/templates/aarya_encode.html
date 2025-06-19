@@ -1,0 +1,28 @@
+{% set active_page = "encode" %}
+{% set template_prefix = 'aarya_' %}
+{% include template_prefix + "header.html" %}
+
+<div class="container p-3 lead">
+    <form method=POST enctype=multipart/form-data action="{{ url_for('aaryabhatiya.aaryabhatiya_text') }}">
+        <div class="form-group">
+            <label for="input_number">Encode number</label>
+            <input type="number" class="form-control" id="input_number" name="input_number" placeholder="Enter the number to encode" {% if 'number' in data %}value="{{data.number}}"{% endif %} required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% if 'options' in data %}
+<div class="container p-3 lead">
+    <div class="card bg-light mx-auto">
+        <div class="card-header">
+            <h4>{% if data.options %}Āryabhaṭīya Encodings{% else %}No encodings found.{% endif %}</h4>
+        </div>
+        <ul class="list-group">
+        {% for option in data.options %}
+        <li class="list-group-item">{{option}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% include template_prefix + "footer.html" %}

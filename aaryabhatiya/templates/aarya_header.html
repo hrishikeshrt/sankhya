@@ -1,0 +1,74 @@
+{% set blueprint = 'aaryabhatiya.' %}
+{% set template_prefix = 'aarya_' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>&bull; Āryabhaṭīya &bull; {{ data.title }} &bull;</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="{{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='custom/css/sticky-footer.css')}}" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <script src="{{url_for('static', filename='plugins/bs-custom-file-input.min.js')}}"></script>
+
+    <!-- Animations for Bootstrap-Notify -->
+    <link rel="stylesheet" href="{{url_for('static', filename='plugins/css/animate.min.css')}}">
+
+    <!-- FontAwesome -->
+    <!-- link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" -->
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.css')}}">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-K2X4K2P');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2X4K2P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {% set navigation_bar = {
+        'about': (blueprint + 'aaryabhatiya_home', 'About'),
+        'encode': (blueprint + 'aaryabhatiya_text', 'Encode'),
+        'decode': (blueprint + 'aaryabhatiya_number', 'Decode'),
+        'help': (blueprint + 'aaryabhatiya_help', 'Help'),
+        'examples': (blueprint + 'aaryabhatiya_examples', 'Examples'),
+    } -%}
+    {% set active_page = active_page|default('about') -%}
+
+    <div class="jumbotron text-center position-relative mb-0">
+        <h1 class="display-4">Āryabhaṭīya Saṅkhyā</h1>
+    </div>
+    <div class="col-auto position-fixed" style="top: 1em; right: 1em;" data-toggle="modal" data-target="#feedback-modal">
+        <button class="btn btn-secondary" data-placement="bottom" title="Feedback (Pratikriyā)">
+            <i class="fas fa-envelope"></i>
+        </button>
+    </div>
+    <ul class="nav nav-tabs justify-content-end bg-light">
+        <li class="nav-item col-sm font-weight-light">
+            <a class="nav-link" href="{{url_for('.aaryabhatiya_home')}}..">Saṅkhyā Home</a>
+        </li>
+        {% for id in navigation_bar %}
+        {% set func = navigation_bar[id][0] %}
+        {% set caption = navigation_bar[id][1] %}
+        <li class="nav-item">
+            <a class="nav-link font-weight-light {% if id == active_page %}active{% endif %}" href="{{url_for(func)}}">{{caption}}</a>
+        </li>
+        {% endfor %}
+
+    </ul>
+    {% include "aarya_feedback.html" %}
+

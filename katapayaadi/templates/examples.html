@@ -1,0 +1,12 @@
+{% set active_page = "examples" %}
+{% include "header.html" %}
+<div class="container p-3">
+<ul class="list-group">
+    {% for example in data['examples'] %}
+    <li class="list-group-item">
+        {{example}}
+    </li>
+    {% endfor %}
+</ul>
+</div>
+{% include "footer.html" %}

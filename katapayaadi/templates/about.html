@@ -1,0 +1,32 @@
+{% set active_page = "about" %}
+{% include "header.html" %}
+    <div class="container p-3">
+        <p class="lead">
+            The <b>ka·ṭa·pa·yā·di system</b> (<i>Devanagari: कटपयादि</i>) is an ancient Indian alphasyllabic numeral system to
+            depict letters to numerals for easy rememberance of numbers as words or verses. Assigning more
+            than one letter to one numeral and nullifying certain other letters as valueless, this system provides
+            the flexibility in forming meaningful words out of numbers which can be easily remembered.
+        </p>
+        <a class="btn btn-secondary" href="{{url_for('katapayaadi.katapayaadi_help', lang=lang)}}" role="button">Learn more</a>
+    </div>
+
+    <div class="container p-3">
+        <div class="card bg-light mx-auto" style="width: 50%;">
+            <div class="card-body mx-auto lead">
+                <span data-toggle="tooltip" data-placement="right" title="1811111701566400">
+                    नञावचश्च शून्यानि सङ्ख्याः कटपयादयः।
+                </span><br>
+                <span data-toggle="tooltip" data-placement="right" title="2438166017811625">
+                    मिश्रे तूपान्त्यहल् सङ्ख्या न च चिन्त्यो हलस्वरः॥
+                </span>
+                <p class="text-right mt-1 mb-0"><small class="text-muted">~ सद्रत्नमाला (शङ्करवर्मणः)</small></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-3">
+        <div class="card">
+            {% include "table.html" %}
+        </div>
+    </div>
+{% include "footer.html" %}

@@ -1,0 +1,13 @@
+{% set active_page = "examples" %}
+{% set template_prefix = 'aarya_' %}
+{% include template_prefix + "header.html" %}
+<div class="container p-3">
+<ul class="list-group">
+    {% for example in data['examples'] %}
+    <li class="list-group-item">
+        {{example}}
+    </li>
+    {% endfor %}
+</ul>
+</div>
+{% include template_prefix + "footer.html" %}

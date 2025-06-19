@@ -1,0 +1,57 @@
+{% set active_page = "decode" %}
+{% set template_prefix = 'bhoota_' %}
+{% include template_prefix + "header.html" %}
+
+<div class="container p-3 lead">
+    <form method=POST enctype=multipart/form-data action="{{ url_for('bhoota.bhoota_number') }}">
+        <div class="form-group">
+            <label for="input_text">Decode text</label>
+            <input type="text" class="form-control" id="input_text" name="input_text"
+                placeholder="Enter the text to decode" {% if 'text' in data %}value="{{data.text}}" {% endif %}>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% if data.answer and data.answer.options %}
+<div class="container p-3 lead">
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <b>Bhūtasaṅkhyā Numbers</b>
+        </div>
+        <div class="card-body m-0 p-0">
+            <ul class="list-group list-group-flush" id="result">
+                {% for number in data.answer.numbers %}
+                {% set outer_loop_index = loop.index - 1 %}
+                <li class="list-group-item" id="solution_{{outer_loop_index}}" data-toggle="collapse" data-target="#collapse_{{outer_loop_index}}"
+                        aria-expanded="true" aria-controls="collapse_{{outer_loop_index}}">
+                        {{number}}
+                </li>
+                <li id="collapse_{{outer_loop_index}}" class="list-group-item collapse p-0 m-0" aria-labelledby="solution_{{outer_loop_index}}"
+                    data-parent="#result">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-striped m-0">
+                            <tr>
+                                <th>Split</th>
+                                {% for s in data.answer.split %}
+                                <td>{{s}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th>Numbers</th>
+                                {% for n in data.answer.options[outer_loop_index] %}
+                                <td>
+                                    {{n}}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+{% include template_prefix + "footer.html" %}

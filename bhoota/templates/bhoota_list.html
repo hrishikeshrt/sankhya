@@ -1,0 +1,26 @@
+{% set active_page = "list" %}
+{% set template_prefix = 'bhoota_' %}
+{% include template_prefix + "header.html" %}
+<div class="container p-3">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Words</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for idx, row in data.wordlist.items() %}
+            <tr>
+                <th scope="row">
+                    {{idx}}
+                </th>
+                <td>
+                    {{row | join(', ')}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include template_prefix + "footer.html" %}

@@ -1,0 +1,57 @@
+{% set active_page = "decode" %}
+{% include "header.html" %}
+
+<div class="container p-3 lead">
+    <form method=POST enctype=multipart/form-data action="{{ url_for('katapayaadi.katapayaadi_number', lang=lang) }}">
+        <div class="form-group">
+            <label for="input_text">Decode text</label>
+            <input type="text" class="form-control" id="input_text" name="input_text" placeholder="Enter the text to decode" {% if 'text' in data %}value="{{data.text}}"{% endif %}>
+        </div>
+        <div class="form-group">
+            {% for variant, label  in data.variants.items() %}
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" name="variant" id="system-variant-{{variant}}" value="{{variant}}" {% if data.variant == variant %}checked{% endif %}>
+                <label class="custom-control-label" for="system-variant-{{variant}}">{{label}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% if 'number' in data and 'details' in data %}
+<div class="container p-3 lead">
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <b>Kaṭapayādi Number</b>
+        </div>
+        <div class="card-body">
+            {{data.number}}
+        </div>
+    </div>
+</div>
+<div class="container p-3 lead">
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-striped mx-auto">
+            <tr>
+                <th>Split</th>
+                {% for word in data.details %}
+                    {% for s in word['split'] %}<td>{{s}}</td>{% endfor %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Relevant</th>
+                {% for word in data.details %}
+                    {% for c in word['letters'] %}<td>{{c}}</td>{% endfor %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Numbers</th>
+                {% for word in data.details %}
+                    {% for n in word['numbers'] %}<td>{{n}}</td>{% endfor %}
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% include "footer.html" %}

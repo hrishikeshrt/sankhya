@@ -1,0 +1,91 @@
+{% set active_page = "upload" %}
+{% include "header.html" %}
+<script>
+    var source = new EventSource("{{url_for('katapayaadi.progress', lang=lang)}}");
+    source.onmessage = function(event) {
+        var progress = JSON.parse(event.data);
+        if (progress.length == 0) {
+            var incomplete = 0;
+            $("div[name='corpus-progress']").each(function() {
+                var current_progress = $(this).find('.progress-bar').attr('aria-valuenow');
+                if (current_progress == 100) {
+                    $(this).fadeOut();
+                } else if (current_progress > 0) {
+                    incomplete += 1;
+                    $(this).find("h6[id^='percentage-']").html('100%');
+                    $(this).find(".progress-bar").css('width', '100%').attr('aria-valuenow', 100);
+                }
+            });
+            if (incomplete == 0) {
+                source.close();
+            }
+        }
+        for (var i=0; i < progress.length; i++) {
+            corpus = progress[i][0];
+            percent = progress[i][1];
+            $("#progress-bar-" + corpus).attr('aria-valuemax', 100);
+            $("#progress-bar-" + corpus).css('width', percent+'%').attr('aria-valuenow', percent);
+            $("#percentage-" + corpus).html(percent+'%');
+        }
+    }
+</script>
+
+<div class="container p-3">
+    {% if data.warning %}
+    <div class="alert alert-warning" role="alert">
+        {{data.warning}}
+    </div>
+    {% endif %}
+    <form method=POST enctype=multipart/form-data action="{{ url_for('.katapayaadi_upload', lang=lang) }}">
+        <div class="form-group lead">
+            <label for="corpus_name">Corpus name</label>
+            <input type="text" class="form-control" id="corpus_name" name="corpus_name" placeholder="Enter corpus name">
+        </div>
+        <div class="form-group lead">
+            <label for="corpus_desc">Description</label>
+            <input type="text" class="form-control" id="corpus_desc" name="corpus_desc" placeholder="Enter brief description of the corpus">
+        </div>
+        <div class="input-group my-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="file_upload">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="corpus_file" name="corpus_file" aria-describedby="file_upload">
+                <label class="custom-file-label" for="corpus_file">Choose corpus file</label>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" {% if data.warning %}disabled{% endif %}>Submit</button>
+    </form>
+</div>
+<script>
+$(document).ready(function () {
+    bsCustomFileInput.init()
+})
+</script>
+{% for corpus_id, corpus_progress in data.pending.items() %}
+{% set percentage = ((corpus_progress.current * 100)//corpus_progress.total) %}
+    <div class="container p-3" name="corpus-progress">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">{{corpus_progress.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-dark">{{corpus_progress.desc}}</h6>
+                    </div>
+                    <div class="col col-sm-1 my-auto">
+                        <h6 class="text-secondary" id="percentage-{{corpus_id}}">{{percentage}}%</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated active" id="progress-bar-{{corpus_id}}" role="progressbar" style="width: {{percentage}}%;" aria-valuemin="0" aria-valuenow="{{percentage}}" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% include "footer.html" %}

@@ -1,0 +1,99 @@
+{% set active_page = "help" %}
+{% set template_prefix = 'bhoota_' %}
+{% include template_prefix + "header.html" %}
+<div class="container p-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">What is the Bhūtasaṅkhyā system?</h5>
+            <p class="card-text">
+                The <b>Bhūtasaṅkhyā</b> (भूतसङ्ख्या) system is a unique approach
+                to expressing numbers using common words that inherently carry
+                numerical connotations.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Where is the Bhūtasaṅkhyā system used?</h5>
+            <p class="card-text">
+                The Bhūtasaṅkhyā system is primarily used in traditional Indian
+                disciplines such as linguistics, grammar, and traditional
+                knowledge systems like Āyurveda and Nāṭyaśāstra.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How to calculate the numerical value of text in the Bhūtasaṅkhyā system?</h5>
+            <p class="card-text">
+                The system works by using the natural association of numbers
+                with certain words. For example, words like "ऋतु", "रिपु", "रस",
+                "दर्शन", and so on represent the numerical value <b>6</b> as
+                they are associated with the number 6.
+            </p>
+            <p class="card-text">
+                It's worth noting that sometimes a single word can be linked to
+                multiple numbers. For instance, "रस" signifies the number 6
+                (षड्रसाः) in the context of taste in Ayurveda, while in the
+                domain of Nāṭyaśāstra (dramaturgy), it signifies the number 9
+                (नवरसः).
+            </p>
+            <p class="card-text">
+                You can read more about the Bhūtasaṅkhyā system on <a href="https://en.wikipedia.org/wiki/Bhutasamkhya_system" target="_blank">Wikipedia</a>.
+                <br>
+                The <a href="{{url_for('bhoota.bhoota_number')}}">Decode</a> tab will let you calculate the Bhūtasaṅkhyā
+                number for any Devanagari text.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Which are the words used in Bhūtasaṅkhyā?</h5>
+            <p class="card-text">
+                In general, there is no fixed set or a single list of all the
+                words used in the Bhūtasaṅkhyā system. However, we maintain a
+                comprehensive word list with their corresponding numerical
+                associations, collected from several sources.
+            </p>
+            <p class="card-test">
+                The <a href="{{url_for('bhoota.bhoota_list')}}">List</a> tab
+                enlists the complete set of words used by our system.
+
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How do we find a Bhūtasaṅkhyā encoding for a number?</h5>
+            <p class="card-text">
+                For encoding numbers, we start by dividing the input number into
+                valid groups of digits, giving priority to larger digit groups.
+                Subsequently, we search for words associated with each digit
+                group and construct a compound word (Samāsa). To aid the process
+                of combining the constituent words of the Samāsa, we utilize the
+                Python package "<a href="https://pypi.org/project/sandhi/">sandhi</a>" for
+                performing sandhi (combination) between the individual words.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How do we find decode the text to find the associated number?</h5>
+            <p class="card-text">
+                When decoding text, we employ the
+                <a href="https://github.com/OliverHellwig/sanskrit/tree/master/papers/2018emnlp">
+                    Sanskrit Sandhi and Compound Splitter
+                </a>
+                to break down the input text into individual words. These words
+                are then matched with their respective numerical representations
+                from the maintained index.
+            </p>
+        </div>
+    </div>
+</div>
+{% include template_prefix + "footer.html" %}

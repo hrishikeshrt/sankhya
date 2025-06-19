@@ -1,0 +1,112 @@
+{% set active_page = "help" %}
+{% include "header.html" %}
+<div class="container p-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">What is the Kaṭapayādi system?</h5>
+            <p class="card-text">
+                    The <b>kaṭapayādi</b> (<em>कटपयादि</em>) system of encoding numbers as words by substituting each digit by a
+                    character was developed in ancient India. Each of the <em>क</em>, <em>ट</em>, <em>प</em>,
+                    <em>य</em> characters are assigned the number 1. The successive characters are assigned the
+                    numbers 2, and so on, thus giving rise to the name <em>कटपयादि</em>. Multiple characters
+                    can be mapped to the same number, however there is only one number for each character. Thus, the system
+                    allows a number to be represented in multiple ways. A nice word or a phrase is generally chosen such
+                    that it is easier to remember.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Where is the Kaṭapayādi system used?</h5>
+            <p class="card-text">
+                    The system has been traditionally used to encode values of important numbers. A famous example of this is
+                    <div class="card bg-light my-2" style="width: 50%;">
+                        <div class="card-body">
+                            भद्राम्बुद्धिसिद्धजन्मगणितश्रद्धा स्म यद् भूपगी:
+                            <p class="text-right mt-1 mb-0"><small class="text-muted">~ सद्रत्नमाला (शङ्करवर्मणः)</small></p>
+                        </div>
+                    </div>
+
+                    In the <b>kaṭapayādi</b> system, this evaluates to <em>314159265358979324</em>, denoting the value of <b>π</b>
+                    (<em>Pi</em>) upto 17 decimals.<br>
+
+                    A modern use of this system can be for remembering numbers in daily use, such as phone numbers,
+                    card details, birth dates, etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How to calculate the numerical value of some text in the Kaṭapayādi system?</h5>
+            <p class="card-text">
+                Verse from <b>sadratnamālā</b> <em>(सद्रत्नमाला)</em>, given on the front page, describes the method to be followed.
+
+                <ul>
+                    <li>Consonants are assigned values as given in the table below.</li>
+                    <li>Vowels, such as <em>अ, आ, इ, ..</em> etc., are assigned the value 0.</li>
+                    <li>In a joint letter, only the last consonant, the one that appears with a vowel, is to be considered.</li>
+                    <li>Consonants without a vowel <em>(हलन्त)</em> are to be ignored.</li>
+                    <li>A general rule is - "<b>अङ्कानाम् ‌वामतो गतिः</b>", that is, numbers go from right to left.</li>
+                </ul>
+                <div class="card">
+                    {% include "table.html" %}
+                </div>
+            </p>
+            <p class="card-text">
+                You can read more about the Kaṭapayādi system on <a href="https://en.wikipedia.org/wiki/Katapayadi_system" target="_blank">Wikipedia</a>.
+                <br>
+                The <a href="{{url_for('katapayaadi.katapayaadi_number')}}">Decode</a> tab will let you calculate the Kaṭapayādi number for any Devanagari text.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How to find a Kaṭapayādi encoding for a number?</h5>
+            <p class="card-text">
+                There is no definite answer to this question. There can be multiple encodings for a same number and multiple ways of obtaining it.
+                For each number, possible set of letters is fixed. A naive way can be to choose a random consonant from this set for each number,
+                combine it with a random vowel and put them in a proper order.
+                This, while generating a correct encoding, will often provide meaningless sequences, remembering which is not going to be any easier.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How do <strong><em><u>we</u></em></strong> find a Kaṭapayādi encoding for a number?</h5>
+            <p class="card-text">
+                We follow a data drive approach. We have built an inverted index of numbers to possible-words from various Sanskrit texts. Given a number, we evaluate its partitions.
+                The inverted-index is queried to find possible words or phrases for each partition. A random word or phrase from
+                the possible options is chosen and these words or phrases are combined in an appropriate manner. Although the sentence
+                as a whole might not make sense, at least it will be a collection of valid words since the words come from existing Sanskrit texts.
+                We are working on making the sentences meaningful.
+            </p>
+            <p class="card-text">
+                A maximum of 10 results are shown. You can re-submit to explore other possible options. You can select
+                corpora from which the words should be chosen to produce the encoding. Not selecting any corpus would
+                make the system search in all available corpora.
+                You can use <button type="button" class="btn btn-outline-dark btn-sm" disabled>CTRL</button> +
+                <button type="button" class="btn btn-outline-dark btn-sm" disabled>CLICK</button> for deselecting or selecting multiple options.
+            </p>
+            <p class="card-text">
+                The <a href="{{url_for('katapayaadi.katapayaadi_text', lang=lang)}}">Encode</a> tab will show you some of the possible Kaṭapayādi encodings for a given number.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">What is the Upload tab for?</h5>
+            <p class="card-text">
+                You can also use a different corpus than what we have in our collection.
+                The <a href="{{url_for('katapayaadi.katapayaadi_upload', lang=lang)}}">Upload</a> tab will let you upload a Devanagari corpus of your choice.
+                After uploading a corpus, it will be processed to enhance our inverted-index. Once processed, it will be availble for selection
+                in the <a href="{{url_for('katapayaadi.katapayaadi_text', lang=lang)}}">Encode</a> tab.
+            </p>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}

@@ -1,0 +1,52 @@
+{% set active_page = "help" %}
+{% set template_prefix = 'aarya_' %}
+{% include template_prefix + "header.html" %}
+<div class="container p-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">What is the Āryabhaṭīya numeration system?</h5>
+            <p class="card-text">
+                The Āryabhaṭīya numeration system, introduced by the ancient
+                Indian mathematician Āryabhaṭa in the early 6th century, is an
+                alphasyllabic numeral system that assigns numerical values to
+                syllables. This system was outlined in the first chapter of
+                Āryabhaṭa’s seminal work, the Āryab- haṭīya, and it represents
+                one of the earliest known examples of using letters to denote
+                numbers in a systematic way.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Where is the Āryabhaṭīya system used?</h5>
+            <p class="card-text">
+                Answer
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How to calculate the numerical value of text in the Āryabhaṭīya numeration system?</h5>
+            <p class="card-text">
+                Answer
+            </p>
+            <p class="card-text">
+                You can read more about the Āryabhaṭīya system on <a href="https://en.wikipedia.org/wiki/%C4%80ryabha%E1%B9%ADa_numeration" target="_blank">Wikipedia</a>.
+                <br>
+                The <a href="{{url_for('aaryabhatiya.aaryabhatiya_number')}}">Decode</a> tab will let you calculate the Āryabhaṭīya number for any Devanagari text.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">How to find a Āryabhaṭīya encoding for a number?</h5>
+            <p class="card-text">
+                Answer
+            </p>
+        </div>
+    </div>
+</div>
+{% include template_prefix + "footer.html" %}

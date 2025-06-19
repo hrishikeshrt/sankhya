@@ -1,0 +1,32 @@
+        <footer class="footer">
+            <div class="container-fluid">
+                <span class="text-muted">
+                    &copy; 2020-{{now.year}}, <a href="https://hrishikeshrt.github.io">Hrishikesh Terdalkar</a>.
+                </span>
+
+            </div>
+        </footer>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <!-- Bootstrap-Notify -->
+        <script src="{{url_for('static', filename='plugins/js/bootstrap-notify.min.js')}}"></script>
+        <script>
+            $.notifyDefaults({
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+                allow_dismiss: false,
+                delay: 3000,
+                timer: 500,
+                animate: {
+                    enter: 'animated fadeInDown',
+                    exit: 'animated fadeOutUp'
+                }
+            });
+        </script>
+    </body>
+</html>
