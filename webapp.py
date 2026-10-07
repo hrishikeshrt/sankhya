@@ -26,7 +26,7 @@ webapp = Flask('Alpha-Syllabic Numeral Systems',
                template_folder='sankhya/templates',
                static_folder='static')
 # webapp.wsgi_app = ReverseProxied(webapp.wsgi_app)
-webapp.secret_key = '31415926535'
+webapp.secret_key = '' # place your secret key here
 
 
 @webapp.context_processor
